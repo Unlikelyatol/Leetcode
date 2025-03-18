@@ -1,0 +1,27 @@
+class Solution:
+    def maximumCostSubstring(self, s: str, chars: str, vals: List[int]) -> int:
+        arr = []
+        for i in range(len(s)):
+            if s[i] in chars:
+                v=chars.index(s[i])
+                arr.append(vals[v])
+            else:
+                arr.append(ord(s[i])-96)
+        temp1 = 0
+        temp2 = 0
+        temp3 = 0
+        me = []
+        for i in range(len(arr)):
+            temp2 += arr[i]
+            if temp2 < temp1:
+                try:
+                    temp3 = temp2 + arr[i+1]
+                    if temp3<=arr[i+1]:
+                        temp2 = 0
+                except:
+                    break
+            else:
+                me.append(temp1)  
+                temp1 = temp2
+        me.append(temp1)
+        return max(me)
